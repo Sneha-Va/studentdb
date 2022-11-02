@@ -39,5 +39,9 @@ while True:
         print('update the student')
     elif(choice==5):
         print('delete the student')
+        admnumber=input("enter admission number:")
+        sql='DELETE FROM `students` WHERE `admnumber`='+admnumber
+        mycursor.execute(sql)
+        mydb.commit()
     elif(choice==6):
         break  
