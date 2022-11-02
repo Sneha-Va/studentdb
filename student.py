@@ -8,7 +8,11 @@ while True:
     print('3 search a student')
     print('4 update the student')
     print('5 delete a student')
-    print('6 exit')
+    print('6 insert mark')
+    print('7 view all mark')
+    print('8 subjectwise  mark')
+    print('9. indiviual mark')
+    print('10 exit')
     
     choice=int(input('enter the option:'))
     if(choice==1):
@@ -52,4 +56,29 @@ while True:
         mycursor.execute(sql)
         mydb.commit()
     elif(choice==6):
-        break  
+        print("insert mark")
+        admnumber=input("enter the admisson number" )
+        sql='SELECT `id` FROM `students` WHERE `admnumber`='+admnumber
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        id=0
+        for i in result:
+           id=str(i[0])
+        print('student id is:',id)
+        physicsmark=input("enter physics  mark")
+        chemistrymark=input("enter chemstry marks")
+        mathsmark=input("enter maths mark")
+        sql="INSERT INTO `marks`( `studentid`, `physicsmark`, `chemistrymark`, `mathsmark`) VALUES (%s,%s,%s,%s)"
+        data=(id,physicsmark,chemistrymark,mathsmark)
+        mycursor.execute(sql,data)
+        mydb.commit()
+    elif(choice==7):
+        print("view mark")
+        sql="SELECT s.`name`, s.`rollnumber`, s.`admnumber`,s. `college`,m.physicsmark,m.chemistrymark,m.mathsmark FROM `students` s JOIN marks m ON s.id =m.studentid"
+        mycursor.execute(sql)
+        result=mycursor.fetchall()
+        for i in result:
+            print(i)
+    
+    elif(choice==10):
+        break
